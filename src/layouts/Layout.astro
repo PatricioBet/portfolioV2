@@ -1,0 +1,113 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description || "Portafolio de Patricio Betancourt"} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+
+        <!-- SEO and Meta Tags copied from index.html -->
+        <meta name="author" content="Patricio Betancourt" />
+        <meta name="keywords" content="desarrollador, desarrollador web, full stack, data science, ciencia de datos, portafolio, React, Python, Node.js, Java, JavaScript, desarrollo de software, Patricio Betancourt" />
+        <meta name="robots" content="index, follow" />
+        
+        <link rel="canonical" href="https://patriciobet.dev/" />
+        <link rel="alternate" hreflang="es" href="https://patriciobet.dev/" />
+        <link rel="alternate" hreflang="en" href="https://patriciobet.dev/" />
+        <link rel="alternate" hreflang="x-default" href="https://patriciobet.dev/" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+        <meta property="og:site_name" content="Patricio Betancourt – Desarrollador Full Stack" />
+        <meta property="og:url" content="https://patriciobet.dev/" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content="https://patriciobet.dev/banner/banner.webp" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://patriciobet.dev/" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://patriciobet.dev/banner/banner.webp" />
+
+        <!-- JSON‑LD Structured Data -->
+        <script type="application/ld+json" is:inline>
+            {
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "name": "Patricio Betancourt – Desarrollador Full Stack",
+                  "url": "https://patriciobet.dev/",
+                  "description": "Portafolio profesional de Patricio Betancourt, desarrollador Full Stack y Data Science especializado en React, Python, Node.js y Java.",
+                  "inLanguage": ["es", "en"]
+                },
+                {
+                  "@type": "Organization",
+                  "name": "Patricio Betancourt",
+                  "url": "https://patriciobet.dev/",
+                  "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://patriciobet.dev/iconos/logo_general.png",
+                    "width": 512,
+                    "height": 512
+                  }
+                },
+                {
+                  "@type": "Person",
+                  "name": "Patricio Betancourt",
+                  "url": "https://patriciobet.dev/",
+                  "image": "https://patriciobet.dev/banner/banner.webp",
+                  "jobTitle": "Desarrollador Full Stack & Data Science",
+                  "description": "Desarrollador Full Stack y Data Science con experiencia en React, Python, Node.js y Java. Formado en Ingeniería de Software en la Universidad Nacional de Loja.",
+                  "sameAs": [
+                    "https://github.com/PatricioBet",
+                    "https://www.linkedin.com/in/patricio-betancourt/"
+                  ],
+                  "knowsAbout": ["React", "Python", "JavaScript", "Node.js", "Java", "MongoDB", "Data Science", "Desarrollo Web", "Full Stack"],
+                  "alumniOf": {
+                    "@type": "EducationalOrganization",
+                    "name": "Universidad Nacional de Loja"
+                  },
+                  "email": "patobetan8@gmail.com"
+                }
+              ]
+            }
+        </script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+        <script is:inline>
+            // Theme script to prevent FOUC
+            const theme = (() => {
+                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                    return localStorage.getItem('theme');
+                }
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+                return 'light';
+            })();
+        
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+	</head>
+	<body class="bg-background text-foreground dark:bg-dark-background dark:text-dark-foreground min-h-screen transition-colors duration-300">
+		<slot />
+	</body>
+</html>

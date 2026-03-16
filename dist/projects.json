@@ -1,0 +1,59 @@
+[
+  {
+    "id": "ai-coffee",
+    "title": {
+      "es": "Clasificador de Café con IA",
+      "en": "AI Coffee Classifier"
+    },
+    "description": {
+      "es": "Modelo de visión artificial para la clasificación de granos de café verde arábico, desarrollado como práctica académica.",
+      "en": "Computer vision model for the classification of green arabica coffee beans, developed as an academic internship."
+    },
+    "image": "/images/coffee-project.webp",
+    "url": "https://huggingface.co/spaces/Pucho/Clasificacion_cafe",
+    "tags": ["Python", "IA", "Deep Learning"]
+  },
+  {
+    "id": "coffee-paper",
+    "title": {
+      "es": "Artículo: Clasificación de Café con Swin Transformer V2",
+      "en": "Paper: Coffee Classification with Swin Transformer V2"
+    },
+    "description": {
+      "es": "Modelo de clasificación binaria para café verde arábica de Loja basado en Swin Transformer V2. Destaca por su alta precisión (100% en pruebas), validación interpretable con Grad-CAM.",
+      "en": "Binary classification model for green arabica coffee from Loja based on Swin Transformer V2. Stands out for its high accuracy (100% in tests), interpretable validation with Grad-CAM."
+    },
+    "image": "/images/coffee-paper.webp",
+    "url": "https://ingenius.ups.edu.ec/ingenius/article/view/11209",
+    "tags": ["Python", "IA", "Deep Learning", "Swin Transformer", "Paper"]
+  },
+  {
+    "id": "hexia",
+    "title": {
+      "es": "Hexia Web Corporativa",
+      "en": "Hexia Corporate Website"
+    },
+    "description": {
+      "es": "Implementación completa en React con diseño responsivo, integración de correo para contacto y despliegue continuo.",
+      "en": "Complete implementation in React with responsive design, email integration for contact, and continuous deployment."
+    },
+    "image": "images/hexia-project.webp",
+    "url": "https://hexia.online",
+    "tags": ["React", "JavaScript", "HTML5", "CSS3"]
+  },
+  
+    {
+    "id": "portfolio",
+    "title": {
+      "es": "Portafolio Personal",
+      "en": "Personal Portfolio"
+    },
+    "description": {
+      "es": "Este mismo portafolio, diseñado en React con TailwindCSS, multi-idioma y modo claro/oscuro.",
+      "en": "This very portfolio, designed in React with TailwindCSS, multi-language and light/dark mode."
+    },
+    "image": "/images/portfolio-project.webp",
+    "url": "https://github.com/PatricioBet/portfolio",
+    "tags": ["React", "JavaScript", "Vite", "Tailwind"]
+  }
+]

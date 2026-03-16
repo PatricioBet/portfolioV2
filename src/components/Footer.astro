@@ -1,0 +1,58 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Github, Linkedin, Mail } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  {
+    href: 'https://github.com/PatricioBet',
+    icon: Github,
+    label: 'GitHub',
+  },
+  {
+    href: 'https://www.linkedin.com/in/patricio-betancourt/',
+    icon: Linkedin,
+    label: 'LinkedIn',
+  },
+  {
+    href: 'mailto:patobetan8@gmail.com',
+    icon: Mail,
+    label: 'Email',
+  },
+];
+---
+
+<footer class="bg-card dark:bg-dark-card border-t border-border dark:border-dark-border" role="contentinfo">
+  <div class="container mx-auto px-6 py-8">
+    <div class="flex flex-col items-center gap-4">
+      <!-- Social links -->
+      <nav class="flex items-center gap-3" aria-label="Redes sociales">
+        {socialLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+          <a
+            href={link.href}
+            target={link.href.startsWith('mailto') ? undefined : '_blank'}
+            rel={link.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+            class="p-2.5 rounded-lg text-card-foreground/60 dark:text-dark-card-foreground/60 hover:text-primary dark:hover:text-dark-primary hover:bg-primary/10 dark:hover:bg-dark-primary/10 transition-all duration-300"
+            aria-label={link.label}
+          >
+            <Icon size={20} />
+          </a>
+        )})}
+      </nav>
+
+      <!-- Brand & Copyright - centered -->
+      <div class="flex items-center gap-2 text-center">
+        <img src="/iconos/logo_general.webp" alt="Logo" class="h-6 w-6 rounded" width="24" height="24" />
+        <span class="text-xl font-extrabold text-primary dark:text-dark-primary">PB<span class="text-accent dark:text-dark-accent"></span></span>
+        <span class="text-sm text-card-foreground/60 dark:text-dark-card-foreground/60">
+          &copy; {currentYear} {t('footer_text')}
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>

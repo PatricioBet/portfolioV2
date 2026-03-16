@@ -1,0 +1,268 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { SiPython as PyIcon, SiReact as RIcon, SiJavascript as JSIcon, SiNodedotjs as NIcon } from 'react-icons/si';
+import { FaBrain, FaDatabase } from 'react-icons/fa';
+import { IoDocumentText } from 'react-icons/io5';
+import { MdApps } from 'react-icons/md';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
+import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import projectsData from '../../public/projects.json';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Pre-process projects to include language specific data and tags normalisation
+const projects = projectsData.map(proj => ({
+    ...proj,
+    tagsLower: proj.tags.map(tag => tag.toLowerCase())
+}));
+
+// Filters data
+const tagFilters = [
+    { value: 'all',            label: t('projects_filter_all'), type: 'MdApps' },
+    { value: 'ia',             label: 'IA / ML',        type: 'FaBrain', color: "#8B5CF6" },
+    { value: 'deep learning',  label: 'Deep Learning',  type: 'FaBrain', color: "#EC4899" },
+    { value: 'react',          label: 'React',          type: 'RIcon', color: "#61DAFB" },
+    { value: 'python',         label: 'Python',         type: 'PyIcon', color: "#3776AB" },
+    { value: 'javascript',     label: 'JavaScript',     type: 'JSIcon', color: "#F7DF1E" },
+    { value: 'node.js',        label: 'Node.js',        type: 'NIcon', color: "#339933" },
+    { value: 'paper',          label: 'Papers',         type: 'IoDocumentText', color: "#F59E0B" },
+    { value: 'dataset',        label: 'Datasets',       type: 'FaDatabase', color: "#10B981" },
+];
+---
+
+<section id="projects" class="py-24 bg-foreground/[0.02] dark:bg-dark-foreground/[0.02]" aria-labelledby="projects-heading">
+  <div class="container mx-auto px-6">
+    <div class="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+      <h2 id="projects-heading" class="section-heading">{t('projects_title')}</h2>
+      <p class="section-subheading">{t('projects_subtitle')}</p>
+    </div>
+
+    <!-- Filter buttons -->
+    <div class="flex justify-center flex-wrap gap-3 mb-12">
+      {tagFilters.map(filter => (
+        <button
+          data-filter={filter.value}
+          class="filter-btn px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 text-sm font-medium border
+          bg-card dark:bg-dark-card text-foreground/70 dark:text-dark-foreground/70 border-border dark:border-dark-border
+          hover:border-primary/50 dark:hover:border-dark-primary/50 hover:text-primary dark:hover:text-dark-primary"
+          aria-pressed={filter.value === 'all'}
+        >
+          <!-- Icons handled conditionally (basic approximation since we can't map components easily in astro frontmatter loop without map) 
+               Actually we can render them directly.
+          -->
+          <span class="icon-wrapper opacity-70 grayscale filter-icon">
+            {filter.type === 'MdApps' && <MdApps className="w-5 h-5" />}
+            {filter.type === 'FaBrain' && <FaBrain className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'RIcon' && <RIcon className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'PyIcon' && <PyIcon className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'JSIcon' && <JSIcon className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'NIcon' && <NIcon className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'IoDocumentText' && <IoDocumentText className="w-5 h-5" style={{color: filter.color}} />}
+            {filter.type === 'FaDatabase' && <FaDatabase className="w-5 h-5" style={{color: filter.color}} />}
+          </span>
+          {filter.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Project cards grid -->
+    <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project, index) => (
+        <article
+          class="project-card card-glass overflow-hidden flex flex-col group h-full transition-all duration-500"
+          data-tags={JSON.stringify(project.tagsLower)}
+          data-index={index}
+        >
+          <div class="relative overflow-hidden h-44 sm:h-48 group-hover:scale-105 transition-transform duration-500">
+            <img
+              src={project.image}
+              alt={`${t('project_image_alt')} ${project.title[lang]}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <div class="p-5 sm:p-6 flex flex-col flex-grow">
+            <h3 class="text-lg sm:text-xl font-bold mb-2 text-card-foreground dark:text-dark-card-foreground group-hover:text-primary dark:group-hover:text-dark-primary transition-colors line-clamp-2">
+              {project.title[lang]}
+            </h3>
+
+            <!-- Description -->
+            <div class="relative mb-3">
+              <div class="project-desc text-sm sm:text-base text-card-foreground/70 dark:text-dark-card-foreground/70 leading-relaxed overflow-hidden line-clamp-3 transition-all duration-300">
+                {project.description[lang]}
+              </div>
+            </div>
+            
+            <button
+                class="read-more-btn inline-flex items-center gap-1 text-xs font-medium text-primary dark:text-dark-primary hover:underline mb-3 self-start hidden"
+            >
+                <span class="read-more-text">{t('card_read_more')}</span>
+                <span class="read-less-text hidden">{t('card_read_less')}</span>
+                <ChevronDown size={14} class="more-icon" />
+            </button>
+
+            <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 mt-auto">
+              {project.tags.map((tag) => (
+                <span class="text-xs font-medium bg-primary/10 text-primary dark:bg-dark-primary/15 dark:text-dark-primary px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-primary dark:text-dark-primary font-semibold hover:gap-3 transition-all duration-300 text-sm sm:text-base"
+            >
+              {t('project_view_link')} <ExternalLink size={16} />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Show more button -->
+    <div id="show-more-container" class="flex justify-center mt-10 hidden">
+      <button
+        id="show-more-btn"
+        class="px-6 py-3 rounded-full flex items-center gap-2 text-sm font-medium border transition-all duration-300
+          bg-card dark:bg-dark-card text-foreground/70 dark:text-dark-foreground/70 border-border dark:border-dark-border
+          hover:border-primary/50 dark:hover:border-dark-primary/50 hover:text-primary dark:hover:text-dark-primary
+          hover:shadow-md hover:shadow-primary/10 dark:hover:shadow-dark-primary/10"
+      >
+        <span id="show-more-text">{t('projects_show_more')}</span>
+        <span id="show-less-text" class="hidden">{t('projects_show_less')}</span>
+        <HiChevronDown className="w-5 h-5" id="show-more-icon" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+    // Filtering Logic
+    let activeFilter = 'all';
+    let visibleCount = 6;
+    let isExpanded = false; // For "Show More Projects"
+    
+    const projects = document.querySelectorAll('.project-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const showMoreContainer = document.getElementById('show-more-container');
+    const showMoreBtn = document.getElementById('show-more-btn');
+    const showMoreText = document.getElementById('show-more-text');
+    const showLessText = document.getElementById('show-less-text');
+    const showMoreIcon = document.getElementById('show-more-icon');
+
+    function updateVisibility() {
+        let filtered = [];
+        projects.forEach(p => {
+            const projectTags = JSON.parse(p.getAttribute('data-tags'));
+            const matches = activeFilter === 'all' || projectTags.includes(activeFilter);
+            if (matches) filtered.push(p);
+            
+            // Hide all initially
+            p.classList.add('hidden');
+        });
+
+        // Determine how many to show
+        const totalFiltered = filtered.length;
+        const countToShow = isExpanded ? totalFiltered : 6;
+        
+        filtered.slice(0, countToShow).forEach(p => {
+            p.classList.remove('hidden');
+            // Adding a small fade in animation when filtering
+            p.animate([
+                { opacity: 0, transform: 'translateY(20px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], { duration: 300, fill: 'forwards' });
+        });
+
+        // Update Show More button visibility
+        if (totalFiltered > 6) {
+            showMoreContainer.classList.remove('hidden');
+            if (isExpanded) {
+                showMoreText.classList.add('hidden');
+                showLessText.classList.remove('hidden');
+                // rotate icon
+                showMoreIcon.style.transform = 'rotate(180deg)';
+            } else {
+                showMoreText.classList.remove('hidden');
+                showLessText.classList.add('hidden');
+                showMoreIcon.style.transform = 'rotate(0deg)';
+            }
+        } else {
+            showMoreContainer.classList.add('hidden');
+        }
+    }
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+             // UI Update
+            filterBtns.forEach(b => {
+                b.setAttribute('aria-pressed', 'false');
+                b.classList.remove('bg-primary', 'text-white', 'dark:bg-dark-primary', 'dark:text-dark-background', 'shadow-md');
+                b.classList.add('bg-card', 'dark:bg-dark-card', 'text-foreground/70');
+                b.querySelector('.icon-wrapper').classList.add('grayscale', 'opacity-70');
+                b.querySelector('.icon-wrapper').classList.remove('grayscale-0');
+            });
+            btn.setAttribute('aria-pressed', 'true');
+            btn.classList.add('bg-primary', 'text-white', 'dark:bg-dark-primary', 'dark:text-dark-background', 'shadow-md');
+            btn.classList.remove('bg-card', 'dark:bg-dark-card', 'text-foreground/70');
+            btn.querySelector('.icon-wrapper').classList.remove('grayscale', 'opacity-70');
+            btn.querySelector('.icon-wrapper').classList.add('grayscale-0');
+
+            activeFilter = btn.getAttribute('data-filter');
+            isExpanded = false; // Reset expansion on filter change
+            updateVisibility();
+        });
+    });
+
+    showMoreBtn?.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        updateVisibility();
+    });
+
+    // Description "Read More" logic
+    // We need to check which descriptions are clamped
+    const descs = document.querySelectorAll('.project-desc');
+    descs.forEach(desc => {
+        const btn = desc.parentElement.nextElementSibling;
+        // Check if clamped (scrollHeight > clientHeight)
+        // Note: For this to work accurately, visible descriptions need to be checked.
+        // But some are hidden initially. We can use a resize observer or just check on click.
+        // A simple heuristic: if text length is long.
+        if (desc.innerHTML.length > 100) { // arbitrary char count
+             if(desc.scrollHeight > desc.clientHeight || desc.innerHTML.length > 150) {
+                 btn.classList.remove('hidden');
+                 btn.addEventListener('click', (e) => {
+                     const isReadMore = btn.querySelector('.read-more-text').classList.contains('hidden');
+                     // toggle
+                     if (desc.classList.contains('line-clamp-3')) {
+                         desc.classList.remove('line-clamp-3');
+                         btn.querySelector('.read-more-text').classList.add('hidden');
+                         btn.querySelector('.read-less-text').classList.remove('hidden');
+                         btn.querySelector('.more-icon').style.transform = 'rotate(180deg)';
+                     } else {
+                         desc.classList.add('line-clamp-3');
+                         btn.querySelector('.read-more-text').classList.remove('hidden');
+                         btn.querySelector('.read-less-text').classList.add('hidden');
+                         btn.querySelector('.more-icon').style.transform = 'rotate(0deg)';
+                     }
+                 });
+             }
+        }
+    });
+
+    // Initial load
+    updateVisibility();
+    
+    // Set active filter styles for "all" initially
+    const allBtn = document.querySelector('button[data-filter="all"]');
+    if(allBtn) {
+        allBtn.classList.add('bg-primary', 'text-white', 'dark:bg-dark-primary', 'dark:text-dark-background', 'shadow-md');
+        allBtn.classList.remove('bg-card', 'dark:bg-dark-card', 'text-foreground/70');
+        allBtn.querySelector('.icon-wrapper').classList.remove('grayscale', 'opacity-70');
+        allBtn.querySelector('.icon-wrapper').classList.add('grayscale-0');
+    }
+</script>

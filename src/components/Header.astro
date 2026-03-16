@@ -1,0 +1,183 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Sun, Moon, Menu, X } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const navLinks = [
+  { href: '#projects', label: t('nav_projects') },
+  { href: '#about', label: t('nav_about') },
+  { href: '#skills', label: t('nav_skills') },
+  { href: '#contact', label: t('nav_contact') },
+];
+
+const nextLang = lang === 'es' ? 'en' : 'es';
+const nextLangLabel = lang === 'es' ? 'EN' : 'ES';
+const currentLangLabel = lang === 'es' ? 'ES' : 'EN';
+---
+
+<header
+  id="main-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent"
+  role="banner"
+>
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Main navigation">
+    <a href="#" class="flex items-center gap-2 hover:opacity-80 transition-opacity" aria-label="Inicio">
+      <img src="/iconos/logo_general.webp" alt="Logo Patricio Betancourt" class="h-8 w-8 rounded-md" width="32" height="32" />
+      <span class="text-xl font-extrabold tracking-tight text-primary dark:text-dark-primary">PB<span class="text-accent dark:text-dark-accent">.</span></span>
+    </a>
+    
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center space-x-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="relative font-medium text-foreground/70 dark:text-dark-foreground/70 hover:text-primary dark:hover:text-dark-primary transition-colors after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-primary dark:after:bg-dark-primary after:transition-all after:duration-300 hover:after:w-full"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <!-- Theme Toggle -->
+      <button
+        id="theme-toggle"
+        class="p-2 rounded-lg hover:bg-foreground/10 dark:hover:bg-dark-foreground/10 transition-colors"
+        aria-label="Cambiar tema"
+      >
+        <div class="hidden dark:block">
+            <Sun size={20} />
+        </div>
+        <div class="block dark:hidden">
+            <Moon size={20} />
+        </div>
+      </button>
+
+      <!-- Language Toggle -->
+      <div class="flex items-center bg-foreground/5 dark:bg-dark-foreground/5 rounded-lg overflow-hidden">
+        <a
+          href={lang === 'es' ? '#' : '/es'}
+          class={`px-3 py-1.5 text-sm font-semibold transition-all ${
+            lang === 'es'
+              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default'
+              : 'text-foreground/60 dark:text-dark-foreground/60 hover:text-foreground dark:hover:text-dark-foreground'
+          }`}
+          aria-label="Cambiar a español"
+        >
+          ES
+        </a>
+        <a
+          href={lang === 'en' ? '#' : '/en'}
+          class={`px-3 py-1.5 text-sm font-semibold transition-all ${
+            lang === 'en'
+              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default'
+              : 'text-foreground/60 dark:text-dark-foreground/60 hover:text-foreground dark:hover:text-dark-foreground'
+          }`}
+          aria-label="Switch to English"
+        >
+          EN
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button
+          id="menu-toggle"
+          class="p-2 rounded-lg hover:bg-foreground/10 dark:hover:bg-dark-foreground/10 transition-colors"
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <div id="menu-icon-open" class="block">
+            <Menu size={24} />
+          </div>
+          <div id="menu-icon-close" class="hidden">
+            <X size={24} />
+          </div>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden overflow-hidden transition-all duration-300 max-h-0 opacity-0 bg-background/95 dark:bg-dark-background/95 backdrop-blur-md"
+  >
+    <div class="container mx-auto px-6 pb-4 flex flex-col items-center space-y-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-link text-lg font-medium hover:text-primary dark:hover:text-dark-primary transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile Menu Logic
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIconOpen = document.getElementById('menu-icon-open');
+  const menuIconClose = document.getElementById('menu-icon-close');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  let isMenuOpen = false;
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    menuToggle.setAttribute('aria-expanded', String(isMenuOpen));
+    
+    if (isMenuOpen) {
+      mobileMenu.classList.remove('max-h-0', 'opacity-0');
+      mobileMenu.classList.add('max-h-64', 'opacity-100');
+      menuIconOpen.classList.add('hidden');
+      menuIconOpen.classList.remove('block');
+      menuIconClose.classList.add('block');
+      menuIconClose.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.remove('max-h-64', 'opacity-100');
+      mobileMenu.classList.add('max-h-0', 'opacity-0');
+      menuIconOpen.classList.add('block');
+      menuIconOpen.classList.remove('hidden');
+      menuIconClose.classList.add('hidden');
+      menuIconClose.classList.remove('block');
+    }
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (isMenuOpen) toggleMenu();
+    });
+  });
+
+  // Scroll Logic
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header.classList.remove('bg-transparent');
+      header.classList.add('bg-background/90', 'dark:bg-dark-background/90', 'backdrop-blur-md', 'shadow-sm');
+    } else {
+      header.classList.add('bg-transparent');
+      header.classList.remove('bg-background/90', 'dark:bg-dark-background/90', 'backdrop-blur-md', 'shadow-sm');
+    }
+  }, { passive: true });
+
+  // Theme Logic
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  const handleThemeToggle = () => {
+    const element = document.documentElement;
+    element.classList.toggle("dark");
+
+    const isDark = element.classList.contains("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  };
+
+  themeToggle?.addEventListener("click", handleThemeToggle);
+</script>

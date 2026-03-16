@@ -1,0 +1,67 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { GraduationCap, Code2, Users, Zap } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const highlights = [
+  { icon: Code2, key: 'about_highlight_code' },
+  { icon: GraduationCap, key: 'about_highlight_education' },
+  { icon: GraduationCap, key: 'about_highlight_mention' },
+  { icon: Users, key: 'about_highlight_team' },
+  { icon: Zap, key: 'about_highlight_agile' },
+];
+---
+
+<section id="about" class="py-24 bg-background dark:bg-dark-background" aria-labelledby="about-heading">
+  <div class="container mx-auto px-6">
+    <div class="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+      <h2 id="about-heading" class="section-heading">
+        {t('about_title')}
+      </h2>
+      <p class="section-subheading">{t('about_subtitle')}</p>
+
+      <div class="max-w-3xl mx-auto text-center text-lg text-foreground/80 dark:text-dark-foreground/80 leading-relaxed mb-12">
+        <p>{t('about_text')}</p>
+      </div>
+
+      <!-- Highlight cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto md:grid-cols-5 md:max-w-5xl">
+         <!-- Note: Original had 4 columns but 5 items. The last item might wrap or original adjusted grid.
+              The provided React code had 4 cols. 5 items -> 2 rows.
+         -->
+        {highlights.map((item, idx) => {
+          const Icon = item.icon;
+          return (
+          <div
+            class="card-glass p-6 text-center group translate-y-4 opacity-0 transition-all duration-500 about-card"
+            style={`transition-delay: ${idx * 100}ms`}
+          >
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary mb-4 group-hover:scale-110 transition-transform">
+              <Icon size={24} />
+            </div>
+            <p class="text-sm font-medium text-foreground/70 dark:text-dark-foreground/70">
+              {t(item.key)}
+            </p>
+          </div>
+        )})}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('opacity-0', 'translate-y-8');
+                const cards = entry.target.querySelectorAll('.about-card');
+                cards.forEach(c => c.classList.remove('opacity-0', 'translate-y-4'));
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>

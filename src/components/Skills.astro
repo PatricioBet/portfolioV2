@@ -1,0 +1,68 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiNestjs, SiFastapi, SiMongodb, SiN8N } from 'react-icons/si';
+import { FaJava, FaDatabase } from 'react-icons/fa';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const skills = [
+  { name: 'Python', icon: SiPython, color: "#3776AB" },
+  { name: 'JavaScript', icon: SiJavascript, color: "#F7DF1E" },
+  { name: 'React', icon: SiReact, color: "#61DAFB" },
+  { name: 'Node.js', icon: SiNodedotjs, color: "#339933" },
+  { name: 'NestJS', icon: SiNestjs, color: "#E0234E" },
+  { name: 'FastAPI', icon: SiFastapi, color: "#009688" },
+  { name: 'Java', icon: FaJava, color: "#ED8B00" },
+  { name: 'MongoDB', icon: SiMongodb, color: "#47A248" },
+  { name: 'SQL', icon: FaDatabase, color: "#0078D4" },
+  { name: 'N8N', icon: SiN8N, color: "#EA4B71" },
+];
+---
+
+<section id="skills" class="py-24 bg-foreground/[0.02] dark:bg-dark-foreground/[0.02]" aria-labelledby="skills-heading">
+  <div class="container mx-auto px-6">
+    <div class="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+      <h2 id="skills-heading" class="section-heading">{t('skills_title')}</h2>
+      <p class="section-subheading">{t('skills_subtitle')}</p>
+      
+      <div 
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 max-w-5xl mx-auto"
+      >
+        {skills.map((skill, index) => {
+          const Icon = skill.icon;
+          return (
+          <div
+            class="skill-card card-glass flex flex-col items-center justify-center p-6 group cursor-default opacity-0 translate-y-4 transition-all duration-500"
+            style={`transition-delay: ${index * 100}ms`}
+          >
+            <div class="group-hover:scale-110 transition-transform duration-300">
+               <Icon className="h-12 w-12" style={{color: skill.color}} />
+            </div>
+            <p class="mt-4 font-semibold text-sm text-card-foreground dark:text-dark-card-foreground">{skill.name}</p>
+          </div>
+        )})}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('opacity-0', 'translate-y-8');
+                
+                // Animate children skills
+                const skills = entry.target.querySelectorAll('.skill-card');
+                skills.forEach(skill => {
+                    skill.classList.remove('opacity-0', 'translate-y-4');
+                });
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+</script>

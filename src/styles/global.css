@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent dark:from-dark-primary dark:to-dark-accent mb-4 text-center;
+  }
+  
+  .section-subheading {
+    @apply text-lg text-foreground/60 dark:text-dark-foreground/60 max-w-2xl mx-auto text-center mb-16;
+  }
+
+  .btn-primary {
+    @apply px-8 py-3 bg-primary hover:bg-primary-hover dark:bg-dark-primary dark:hover:bg-dark-primary-hover text-white dark:text-dark-background rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-primary/40 flex items-center gap-2;
+  }
+
+  .btn-outline {
+    @apply px-8 py-3 bg-transparent border-2 border-primary/20 dark:border-dark-primary/20 hover:border-primary dark:hover:border-dark-primary text-foreground dark:text-dark-foreground rounded-full font-semibold transition-all duration-300 flex items-center gap-2;
+  }
+
+  .card-glass {
+    @apply bg-white/50 dark:bg-dark-card/50 backdrop-blur-sm border border-white/20 dark:border-white/5 shadow-xl rounded-2xl;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent dark:from-dark-primary dark:to-dark-accent;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background dark:bg-dark-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted/50 dark:bg-dark-muted/50 rounded-full hover:bg-muted dark:hover:bg-dark-muted transition-colors;
+}
+
+html {
+    scroll-behavior: smooth;
+}

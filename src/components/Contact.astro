@@ -1,0 +1,31 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { Mail, ArrowRight } from 'lucide-react';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="contact" class="py-24 bg-background dark:bg-dark-background" aria-labelledby="contact-heading">
+  <div class="container mx-auto px-6 text-center">
+    <div class="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 max-w-2xl mx-auto">
+      <!-- Decorative icon -->
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 dark:bg-dark-primary/10 text-primary dark:text-dark-primary mb-6">
+        <Mail size={28} />
+      </div>
+
+      <h2 id="contact-heading" class="section-heading">{t('contact_title')}</h2>
+      <p class="text-lg text-foreground/70 dark:text-dark-foreground/70 mb-10 leading-relaxed">
+        {t('contact_text')}
+      </p>
+
+      <a
+        href="mailto:patobetan8@gmail.com"
+        class="btn-primary text-lg inline-flex"
+      >
+        {t('contact_button')}
+        <ArrowRight size={20} />
+      </a>
+    </div>
+  </div>
+</section>
