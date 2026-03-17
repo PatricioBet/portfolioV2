@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl } from '../i18n/utils';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 const lang = getLangFromUrl(Astro.url);
 const { title, description } = Astro.props;
@@ -87,6 +88,8 @@ const { title, description } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+        <SpeedInsights />
 
         <script is:inline>
             // Theme script to prevent FOUC
