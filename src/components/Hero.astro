@@ -40,35 +40,35 @@ const t = useTranslations(lang);
 
       <!-- CTA Buttons -->
       <div class="flex flex-wrap justify-center lg:justify-start gap-4 mb-10">
-        <a href="#projects" class="btn-primary">
+        <a href="#projects" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary hover:bg-primary-hover dark:bg-dark-primary dark:hover:bg-dark-primary-hover text-white dark:text-dark-background rounded-full font-semibold transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1">
           {t('hero_cta_projects')}
           <ArrowDown size={18} />
         </a>
-        <a href="#contact" class="btn-outline">
+        <a href="#contact" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-transparent border-2 border-primary/20 dark:border-dark-primary/20 hover:border-primary dark:hover:border-dark-primary text-foreground dark:text-dark-foreground rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:bg-primary/5 dark:hover:bg-dark-primary/5">
           <Mail size={18} />
           {t('hero_cta_contact')}
         </a>
       </div>
 
       <!-- Social Links -->
-      <div class="flex justify-center lg:justify-start gap-4">
+      <div class="flex justify-center lg:justify-start gap-4 mt-6">
         <a
           href="https://github.com/PatricioBet"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-3 rounded-xl bg-foreground/5 dark:bg-dark-foreground/5 hover:bg-primary/10 dark:hover:bg-dark-primary/10 hover:text-primary dark:hover:text-dark-primary transition-all duration-300"
+          class="p-3 rounded-full border border-foreground/10 dark:border-dark-foreground/10 bg-foreground/5 dark:bg-dark-foreground/5 hover:bg-primary/10 dark:hover:bg-dark-primary/10 hover:text-primary dark:hover:text-dark-primary hover:scale-110 transition-all duration-300 shadow-sm"
           aria-label="GitHub de Patricio Betancourt"
         >
-          <Github size={24} />
+          <Github size={24} strokeWidth={2} />
         </a>
         <a
           href="https://www.linkedin.com/in/patricio-betancourt/"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-3 rounded-xl bg-foreground/5 dark:bg-dark-foreground/5 hover:bg-primary/10 dark:hover:bg-dark-primary/10 hover:text-primary dark:hover:text-dark-primary transition-all duration-300"
+          class="p-3 rounded-full border border-foreground/10 dark:border-dark-foreground/10 bg-foreground/5 dark:bg-dark-foreground/5 hover:bg-primary/10 dark:hover:bg-dark-primary/10 hover:text-primary dark:hover:text-dark-primary hover:scale-110 transition-all duration-300 shadow-sm"
           aria-label="LinkedIn de Patricio Betancourt"
         >
-          <Linkedin size={24} />
+          <Linkedin size={24} strokeWidth={2} />
         </a>
       </div>
     </div>

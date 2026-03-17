@@ -58,10 +58,10 @@ const currentLangLabel = lang === 'es' ? 'ES' : 'EN';
       <!-- Language Toggle -->
       <div class="flex items-center bg-foreground/5 dark:bg-dark-foreground/5 rounded-lg overflow-hidden">
         <a
-          href={lang === 'es' ? '#' : '/es'}
+          href="/"
           class={`px-3 py-1.5 text-sm font-semibold transition-all ${
             lang === 'es'
-              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default'
+              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default pointer-events-none'
               : 'text-foreground/60 dark:text-dark-foreground/60 hover:text-foreground dark:hover:text-dark-foreground'
           }`}
           aria-label="Cambiar a español"
@@ -69,10 +69,10 @@ const currentLangLabel = lang === 'es' ? 'ES' : 'EN';
           ES
         </a>
         <a
-          href={lang === 'en' ? '#' : '/en'}
+          href="/en"
           class={`px-3 py-1.5 text-sm font-semibold transition-all ${
             lang === 'en'
-              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default'
+              ? 'bg-primary text-white dark:bg-dark-primary dark:text-dark-background cursor-default pointer-events-none'
               : 'text-foreground/60 dark:text-dark-foreground/60 hover:text-foreground dark:hover:text-dark-foreground'
           }`}
           aria-label="Switch to English"
