@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiNestjs, SiFastapi, SiMongodb, SiN8N, SiDocker, SiNextdotjs, SiPostgresql, SiTailwindcss, SiVite, SiHtml5, SiCss3 } from 'react-icons/si';
-import { FaJava, FaDatabase } from 'react-icons/fa';
+import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiNestjs, SiFastapi, SiMongodb, SiN8N, SiDocker, SiNextdotjs, SiPostgresql, SiTailwindcss, SiVite, SiHtml5 } from 'react-icons/si';
+import { FaJava, FaDatabase, FaCss3 } from 'react-icons/fa';
 import projectsData from '../../public/projects.json';
 
 const lang = getLangFromUrl(Astro.url);
@@ -27,7 +27,7 @@ const tagToSkillMap = {
   tailwind: { name: 'Tailwind CSS', icon: SiTailwindcss, color: "#06B6D4" },
   vite: { name: 'Vite', icon: SiVite, color: "#646CFF" },
   html5: { name: 'HTML5', icon: SiHtml5, color: "#E34F26" },
-  css3: { name: 'CSS3', icon: SiCss3, color: "#1572B6" },
+  css3: { name: 'CSS3', icon: FaCss3, color: "#1572B6" },
 };
 
 const usedTags = new Set(
