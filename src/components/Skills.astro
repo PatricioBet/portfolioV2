@@ -1,12 +1,13 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiNestjs, SiFastapi, SiMongodb, SiN8N } from 'react-icons/si';
+import { SiPython, SiJavascript, SiReact, SiNodedotjs, SiNestjs, SiFastapi, SiMongodb, SiN8N, SiDocker, SiNextdotjs, SiPostgresql, SiTailwindcss, SiVite, SiHtml5, SiCss3 } from 'react-icons/si';
 import { FaJava, FaDatabase } from 'react-icons/fa';
+import projectsData from '../../public/projects.json';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const skills = [
+const baseSkills = [
   { name: 'Python', icon: SiPython, color: "#3776AB" },
   { name: 'JavaScript', icon: SiJavascript, color: "#F7DF1E" },
   { name: 'React', icon: SiReact, color: "#61DAFB" },
@@ -18,6 +19,28 @@ const skills = [
   { name: 'SQL', icon: FaDatabase, color: "#0078D4" },
   { name: 'N8N', icon: SiN8N, color: "#EA4B71" },
 ];
+
+const tagToSkillMap = {
+  docker: { name: 'Docker', icon: SiDocker, color: "#2496ED" },
+  'next.js': { name: 'Next.js', icon: SiNextdotjs, color: "#000000" },
+  postgresql: { name: 'PostgreSQL', icon: SiPostgresql, color: "#336791" },
+  tailwind: { name: 'Tailwind CSS', icon: SiTailwindcss, color: "#06B6D4" },
+  vite: { name: 'Vite', icon: SiVite, color: "#646CFF" },
+  html5: { name: 'HTML5', icon: SiHtml5, color: "#E34F26" },
+  css3: { name: 'CSS3', icon: SiCss3, color: "#1572B6" },
+};
+
+const usedTags = new Set(
+  projectsData.flatMap((project) => project.tags.map((tag) => tag.toLowerCase()))
+);
+
+const existingSkillNames = new Set(baseSkills.map((skill) => skill.name.toLowerCase()));
+
+const additionalSkills = Object.entries(tagToSkillMap)
+  .filter(([tag, skill]) => usedTags.has(tag) && !existingSkillNames.has(skill.name.toLowerCase()))
+  .map(([, skill]) => skill);
+
+const skills = [...baseSkills, ...additionalSkills];
 ---
 
 <section id="skills" class="py-24 bg-foreground/[0.02] dark:bg-dark-foreground/[0.02]" aria-labelledby="skills-heading">

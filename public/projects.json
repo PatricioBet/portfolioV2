@@ -1,5 +1,19 @@
 [
   {
+    "id": "star-recs-ai",
+    "title": {
+      "es": "Star Recs - Recomendador de Películas con IA",
+      "en": "Star Recs - AI Movie Recommender"
+    },
+    "description": {
+      "es": "Sistema de recomendación de películas basado en un modelo NCF entrenado con datos de MovieLens, desplegado como una aplicación web interactiva sobre Docker.",
+      "en": "Movie recommendation system based on an NCF model trained with MovieLens data, deployed as an interactive web application over Docker."
+    },
+    "image": "/images/star-recs-project.webp",
+    "url": "https://star-recs.patriciobet.dev",
+    "tags": ["Python", "IA", "Deep Learning", "React", "FastAPI", "Docker", "Next.js", "PostgreSQL"]
+  },
+  {
     "id": "ai-coffee",
     "title": {
       "es": "Clasificador de Café con IA",
