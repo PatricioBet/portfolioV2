@@ -51,12 +51,11 @@
       "es": "Implementación completa en React con diseño responsivo, integración de correo para contacto y despliegue continuo.",
       "en": "Complete implementation in React with responsive design, email integration for contact, and continuous deployment."
     },
-    "image": "images/hexia-project.webp",
+    "image": "/images/hexia-project.webp",
     "url": "https://hexia.online",
     "tags": ["React", "JavaScript", "HTML5", "CSS3"]
   },
-  
-    {
+  {
     "id": "portfolio",
     "title": {
       "es": "Portafolio Personal",
@@ -69,5 +68,19 @@
     "image": "/images/portfolio-project.webp",
     "url": "https://github.com/PatricioBet/portfolio",
     "tags": ["React", "JavaScript", "Vite", "Tailwind"]
+  },
+  {
+    "id": "coffee-dataset",
+    "title": {
+      "es": "Dataset de Café",
+      "en": "Coffee Dataset"
+    },
+    "description": {
+      "es": "Dataset de imágenes de granos de café verde arábico, recopilado y etiquetado para fines de investigación.",
+      "en": "Dataset of images of green arabica coffee beans, collected and labeled for research purposes."
+    },
+    "image": "/images/coffee-dataset.webp",
+    "url": "https://github.com/PatricioBet/coffee-dataset",
+    "tags": ["Python", "Computer Vision", "Dataset"]
   }
 ]

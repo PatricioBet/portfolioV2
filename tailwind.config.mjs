@@ -9,13 +9,13 @@ export default {
       colors: {
         // Light mode
         'background': '#f8fafc',
-        'foreground': '#1e293b',
+        'foreground': '#0f172a',
         'primary': '#3b82f6',
         'primary-hover': '#2563eb',
         'accent': '#8b5cf6',
         'card': '#ffffff',
-        'card-foreground': '#1e293b',
-        'muted': '#94a3b8',
+        'card-foreground': '#0f172a',
+        'muted': '#475569',
         'border': '#e2e8f0',
         // Dark mode
         'dark-background': '#0f172a',

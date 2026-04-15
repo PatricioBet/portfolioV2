@@ -75,7 +75,7 @@ const tagFilters = [
     <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {projects.map((project, index) => (
         <article
-          class="project-card card-glass overflow-hidden flex flex-col group h-full transition-all duration-500"
+          class="project-card card-glass overflow-hidden flex flex-col group h-full transition-all duration-500 cursor-pointer"
           data-tags={JSON.stringify(project.tagsLower)}
           data-index={index}
         >
@@ -119,9 +119,9 @@ const tagFilters = [
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 text-primary dark:text-dark-primary font-semibold hover:gap-3 transition-all duration-300 text-sm sm:text-base"
+              class="group/link inline-flex items-center gap-2 text-primary dark:text-dark-primary font-semibold transition-colors duration-300 text-sm sm:text-base"
             >
-              {t('project_view_link')} <ExternalLink size={16} />
+              {t('project_view_link')} <ExternalLink size={16} class="transition-transform duration-300 group-hover/link:translate-x-1" />
             </a>
           </div>
         </article>

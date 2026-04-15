@@ -20,7 +20,7 @@
   }
 
   .card-glass {
-    @apply bg-white/50 dark:bg-dark-card/50 backdrop-blur-sm border border-white/20 dark:border-white/5 shadow-xl rounded-2xl;
+    @apply bg-white/80 dark:bg-dark-card/50 backdrop-blur-sm border border-gray-200 dark:border-white/5 shadow-xl rounded-2xl;
   }
   
   .gradient-text {
