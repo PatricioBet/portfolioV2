@@ -82,5 +82,61 @@
     "image": "/images/coffee-dataset.webp",
     "url": "https://github.com/PatricioBet/coffee-dataset",
     "tags": ["Python", "Computer Vision", "Dataset"]
+  },
+  {
+    "id": "banana-anomaly-detection",
+    "title": {
+      "es": "Detección de Anomalías en Bananas con Visión Artificial",
+      "en": "Banana Anomaly Detection with Computer Vision"
+    },
+    "description": {
+      "es": "Pipeline de inferencia en tiempo real para inspección y control de calidad de bananas. Combina RT-DETR y ByteTrack para detección y tracking, con un modelo PatchCore (WideResNet50) entrenado exclusivamente con muestras sanas para identificar anomalías sin haber visto defectos durante el entrenamiento. Incluye umbral dinámico de confianza, mapas de calor explicables y consistencia temporal basada en ventana de 3 de 5 frames.",
+      "en": "Real-time inference pipeline for banana inspection and quality control. Combines RT-DETR and ByteTrack for detection and tracking, with a PatchCore model (WideResNet50) trained exclusively on healthy samples to identify anomalies without having seen defects during training. Features dynamic confidence thresholding, explainable heatmaps, and temporal consistency based on a 3-of-5 frame window."
+    },
+    "image": "/images/banana-anomaly-detection.webp",
+    "url": "https://lnkd.in/p/esBScCvG",
+    "tags": ["Python", "Computer Vision", "PatchCore", "RT-DETR", "ByteTrack", "Anomaly Detection", "Deep Learning"]
+  },
+  {
+    "id": "fly-rl-agent",
+    "title": {
+      "es": "Agente de RL con Cerebro de Mosca",
+      "en": "RL Agent with Fly Brain"
+    },
+    "description": {
+      "es": "Agente de aprendizaje por refuerzo construido sobre el conectoma real de Drosophila (4502 neuronas, 15894 sinapsis extraídas de neuprint-python). Optimización de memoria con capas esparsas en PyTorch (de 77.3 MB a 0.3 MB). Entrenamiento PPO en entorno 3D personalizado (FlyCubeEnv) con sensores de visión LIDAR y olfato sintético, logrando 100% de tasa de éxito en tareas de recolección y entrega. Visualización en tiempo real con PyOpenGL.",
+      "en": "Reinforcement learning agent built on the real Drosophila connectome (4502 neurons, 15894 synapses extracted from neuprint-python). Memory optimization with sparse layers in PyTorch (from 77.3 MB to 0.3 MB). PPO training in a custom 3D environment (FlyCubeEnv) with LIDAR vision and synthetic olfaction sensors, achieving 100% success rate in collection and delivery tasks. Real-time visualization with PyOpenGL."
+    },
+    "image": "/images/fly-rl-agent.webp",
+    "url": "https://lnkd.in/p/eV9QcKdq",
+    "tags": ["Python", "PyTorch", "Reinforcement Learning", "Neuroscience", "PPO", "Connectomics", "3D Simulation"]
+  },
+  {
+    "id": "solar-backup-system",
+    "title": {
+      "es": "Sistema de Respaldo Eléctrico Solar DIY",
+      "en": "DIY Solar Backup Power System"
+    },
+    "description": {
+      "es": "Sistema solar funcional construido desde cero por menos de $170 USD. Incluye panel de 300W, controlador PWM, batería de litio 12V 18Ah con BMS 40A, e inversor 12V→110V. Análisis de capacidad real (~190Wh útiles), pruebas de carga simultánea, y planificación de mejoras: transición a MPPT, batería LiFePO4 y monitoreo con ESP32.",
+      "en": "Functional solar system built from scratch for under $170 USD. Includes a 300W panel, PWM controller, 12V 18Ah lithium battery with 40A BMS, and 12V→110V inverter. Real capacity analysis (~190Wh usable), simultaneous load testing, and improvement roadmap: MPPT transition, LiFePO4 battery, and ESP32 monitoring."
+    },
+    "image": "/images/solar-backup-system.webp",
+    "url": "https://lnkd.in/p/ehVVJRMX",
+    "tags": ["Electronics", "Solar Energy", "IoT", "ESP32", "DIY", "Renewable Energy", "Power Systems"]
+  },
+  {
+    "id": "nasa-space-apps-bloomwatch",
+    "title": {
+      "es": "NASA Space Apps Challenge - BloomWatch",
+      "en": "NASA Space Apps Challenge - BloomWatch"
+    },
+    "description": {
+      "es": "Aplicación web y modelo de IA para segmentar y reconocer floración en imágenes satelitales mediante análisis de firma espectral. Integración de datos ópticos de Sentinel, tecnología SAR de RADARSAT para detección continua, y datos de OpenWeather para alertas de polen y gestión agrícola. Desarrollo en 48 horas como parte del equipo AstroForgeX.",
+      "en": "Web application and AI model for segmenting and recognizing flowering in satellite imagery through spectral signature analysis. Integration of optical data from Sentinel, RADARSAT SAR technology for continuous detection, and OpenWeather data for pollen alerts and agricultural management. Developed in 48 hours as part of team AstroForgeX."
+    },
+    "image": "/images/nasa-space-apps-bloomwatch.webp",
+    "url": "https://lnkd.in/p/eXeB_Brc",
+    "tags": ["AI", "Satellite Imagery", "Space Data", "Deep Learning", "Web App", "NASA", "Hackathon"]
   }
 ]
