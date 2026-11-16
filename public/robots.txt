@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Optimize crawl budget
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://patriciobet.dev/sitemap.xml
+
