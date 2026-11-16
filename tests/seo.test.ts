@@ -22,10 +22,21 @@ describe('SEO Meta Tags', () => {
     expect(layoutContent).toContain('initial-scale');
   });
 
-  it('should have robots meta tag allowing indexing', () => {
+  it('should have robots meta tag allowing indexing with extended directives', () => {
     expect(layoutContent).toContain('meta name="robots"');
     expect(layoutContent).toContain('index');
     expect(layoutContent).toContain('follow');
+    expect(layoutContent).toContain('max-image-preview:large');
+    expect(layoutContent).toContain('max-snippet:-1');
+    expect(layoutContent).toContain('max-video-preview:-1');
+  });
+
+  it('should NOT have a keywords meta tag (Google does not use it)', () => {
+    expect(layoutContent).not.toContain('meta name="keywords"');
+  });
+
+  it('should NOT have a generator meta tag (security best practice)', () => {
+    expect(layoutContent).not.toContain('meta name="generator"');
   });
 
   it('should have author meta tag', () => {
@@ -120,6 +131,34 @@ describe('SEO Meta Tags', () => {
     expect(layoutContent).toContain('fonts.googleapis.com');
     expect(layoutContent).toContain('fonts.gstatic.com');
   });
+
+  it('should have PWA meta tags for mobile browsers', () => {
+    expect(layoutContent).toContain('meta name="apple-mobile-web-app-capable"');
+    expect(layoutContent).toContain('meta name="apple-mobile-web-app-status-bar-style"');
+    expect(layoutContent).toContain('meta name="apple-mobile-web-app-title"');
+  });
+
+  it('should have multiple favicon formats', () => {
+    expect(layoutContent).toContain('link rel="icon" type="image/png"');
+    expect(layoutContent).toContain('link rel="icon" type="image/svg+xml"');
+  });
+
+  it('should have msapplication-TileColor for Windows tiles', () => {
+    expect(layoutContent).toContain('meta name="msapplication-TileColor"');
+  });
+
+  it('should have email: prefix in JSON-LD Person email', () => {
+    expect(layoutContent).toContain('"email": "mailto:patobetan8@gmail.com"');
+  });
+
+  it('should have sameAs in JSON-LD Organization', () => {
+    // Organization should also have sameAs for social links
+    const orgSection = layoutContent.substring(
+      layoutContent.indexOf('"@type": "Organization"'),
+      layoutContent.indexOf('"@type": "Person"')
+    );
+    expect(orgSection).toContain('sameAs');
+  });
 });
 
 describe('Robots.txt', () => {
@@ -138,6 +177,14 @@ describe('Robots.txt', () => {
   it('should reference sitemap URL', () => {
     expect(robotsContent).toContain('Sitemap:');
     expect(robotsContent).toContain('sitemap.xml');
+  });
+
+  it('should disallow API paths', () => {
+    expect(robotsContent).toContain('Disallow: /api/');
+  });
+
+  it('should have proper formatting with comments', () => {
+    expect(robotsContent).toContain('#');
   });
 });
 
@@ -164,5 +211,110 @@ describe('Sitemap', () => {
     expect(sitemapContent).toContain('hreflang="es"');
     expect(sitemapContent).toContain('hreflang="en"');
     expect(sitemapContent).toContain('hreflang="x-default"');
+  });
+
+  it('should have priority and changefreq values', () => {
+    expect(sitemapContent).toContain('<priority>');
+    expect(sitemapContent).toContain('<changefreq>');
+  });
+
+  it('should have lastmod dates', () => {
+    expect(sitemapContent).toContain('<lastmod>');
+  });
+});
+
+describe('Astro Configuration', () => {
+  let configContent: string;
+
+  beforeAll(() => {
+    configContent = readFileSync(join(__dirname, '../astro.config.mjs'), 'utf-8');
+  });
+
+  it('should have site configured', () => {
+    expect(configContent).toContain("site: 'https://patriciobet.dev'");
+  });
+});
+
+describe('Image SEO', () => {
+  let projectsContent: string;
+
+  beforeAll(() => {
+    projectsContent = readFileSync(join(__dirname, '../src/components/Projects.astro'), 'utf-8');
+  });
+
+  it('should have width and height attributes on project images', () => {
+    expect(projectsContent).toContain('width="400"');
+    expect(projectsContent).toContain('height="250"');
+  });
+
+  it('should have lazy loading on project images', () => {
+    expect(projectsContent).toContain('loading="lazy"');
+  });
+
+  it('should have alt text on project images', () => {
+    expect(projectsContent).toContain('alt=');
+  });
+});
+
+describe('Favicon', () => {
+  it('should have an SVG favicon', () => {
+    const publicDir = join(__dirname, '../public');
+    const faviconSvg = join(publicDir, 'favicon.svg');
+    const content = readFileSync(faviconSvg, 'utf-8');
+    expect(content).toContain('<svg');
+    expect(content).toContain('viewBox');
+  });
+});
+
+describe('Semantic HTML Structure', () => {
+  let allComponents: string;
+
+  beforeAll(() => {
+    const componentsDir = join(__dirname, '../src/components');
+    const files = ['Hero.astro', 'Projects.astro', 'About.astro', 'Skills.astro', 'Contact.astro', 'Header.astro', 'Footer.astro'];
+    allComponents = files
+      .map(f => readFileSync(join(componentsDir, f), 'utf-8'))
+      .join('\n');
+  });
+
+  it('should use semantic section elements with aria-labelledby', () => {
+    expect(allComponents).toContain('aria-labelledby');
+  });
+
+  it('should have proper heading hierarchy', () => {
+    // Hero should have h1
+    const heroContent = readFileSync(join(__dirname, '../src/components/Hero.astro'), 'utf-8');
+    expect(heroContent).toContain('<h1');
+    // Other sections should have h2
+    ['Projects', 'About', 'Skills', 'Contact'].forEach(section => {
+      const content = readFileSync(join(__dirname, `../src/components/${section}.astro`), 'utf-8');
+      expect(content).toContain('h2');
+    });
+  });
+
+  it('should use proper ARIA roles', () => {
+    const headerContent = readFileSync(join(__dirname, '../src/components/Header.astro'), 'utf-8');
+    const footerContent = readFileSync(join(__dirname, '../src/components/Footer.astro'), 'utf-8');
+    expect(headerContent).toContain('role="banner"');
+    expect(footerContent).toContain('role="contentinfo"');
+  });
+
+  it('should have aria-label on navigation elements', () => {
+    const headerContent = readFileSync(join(__dirname, '../src/components/Header.astro'), 'utf-8');
+    const footerContent = readFileSync(join(__dirname, '../src/components/Footer.astro'), 'utf-8');
+    expect(headerContent).toContain('aria-label="Main navigation"');
+    expect(footerContent).toContain('aria-label="Redes sociales"');
+  });
+
+  it('should use article elements for project cards', () => {
+    const projectsContent = readFileSync(join(__dirname, '../src/components/Projects.astro'), 'utf-8');
+    expect(projectsContent).toContain('<article');
+  });
+
+  it('should have rel="noopener noreferrer" on external links', () => {
+    const heroContent = readFileSync(join(__dirname, '../src/components/Hero.astro'), 'utf-8');
+    const projectsContent = readFileSync(join(__dirname, '../src/components/Projects.astro'), 'utf-8');
+    expect(heroContent).toContain('noopener noreferrer');
+    expect(projectsContent).toContain('noopener noreferrer');
   });
 });
